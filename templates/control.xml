@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<hbuilder {%if debug%}debug="true" ns="true"{%endif%} version="1.9.9.26346"><apps><app appid="{{app_id}}" appver="{{app_ver}}"/></apps></hbuilder>

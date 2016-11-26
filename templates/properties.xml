@@ -1,0 +1,40 @@
+<properties>
+	<features>
+		<feature name="Camera" value="io.dcloud.js.camera.CameraFeatureImpl"/>
+		<feature name="Device" value="io.dcloud.feature.device.DeviceFeatureImpl"/>
+		<feature name="File" value="io.dcloud.js.file.FileFeatureImpl"/>
+		<feature name="Gallery" value="io.dcloud.js.gallery.GalleryFeatureImpl"/>
+		<feature name="Storage" value="io.dcloud.feature.pdr.NStorageFeatureImpl"/>
+		<feature name="Runtime" value="io.dcloud.feature.pdr.RuntimeFeatureImpl"/>
+		<feature name="XMLHttpRequest" value="io.dcloud.net.XMLHttpRequestFeature"/>
+		<feature name="Zip" value="io.dcloud.feature.pdr.ZipFeature"/>
+		<feature name="UI" value="io.dcloud.feature.ui.UIFeatureImpl">
+			<module name="Navigator" value="io.dcloud.feature.ui.NavView"/>
+		</feature>
+		<feature name="NativeUI" value="io.dcloud.feature.ui.nativeui.NativeUIFeatureImpl"/>
+		<feature name="Navigator" value="io.dcloud.feature.ui.navigator.NavigatorUIFeatureImpl"/>
+		<feature name="Uploader" value="io.dcloud.net.UploadFeature"/>
+		<feature name="Barcode" value="io.dcloud.feature.barcode.BarcodeFeatureImpl"/>
+		<feature name="Downloader" value="io.dcloud.net.DownloaderFeatureImpl"/>
+		<feature name="Geolocation" value="io.dcloud.js.geolocation.GeolocationFeatureImpl"/>
+		<feature name="OAuth" value="io.dcloud.feature.oauth.OAuthFeatureImpl"/>
+		<feature name="Invocation" value="io.dcloud.invocation.Invocation"/>
+		<feature name="Push" value="io.dcloud.feature.aps.APSFeatureImpl">
+			<module name="igexin" value="io.dcloud.feature.apsGt.GTPushService"/>
+		</feature>
+		<feature name="Share" value="io.dcloud.share.ShareFeatureImpl">
+			<module name="Weixin" value="io.dcloud.share.mm.WeiXinApiManager"/>
+		</feature>
+		<feature name="OAuth" value="io.dcloud.feature.oauth.OAuthFeatureImpl">
+			<module name="OAuth-Weixin" value="io.dcloud.feature.oauth.weixin.WeiXinOAuthService"/>
+		</feature>
+		<feature name="Payment" value="io.dcloud.feature.payment.PaymentFeatureImpl">
+			<module name="Payment-Weixin" value="io.dcloud.feature.payment.weixin.WeiXinPay"/>
+		</feature>
+	</features>	
+
+	<services>
+		<service name="Downloader" value="io.dcloud.net.DownloaderBootImpl"/>
+		<service name="push" value="io.dcloud.feature.aps.APSFeatureImpl"/>
+	</services>
+</properties>

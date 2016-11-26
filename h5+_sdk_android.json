@@ -1,0 +1,433 @@
+{
+  "hbase": {
+    "jar": [
+      "json_simple-1.1.jar",
+      "nineoldandroids-2.4.0.jar",
+      "pdr.jar",
+      "ui.jar",
+      "universal-image-loader-1.9.0.jar"
+    ]
+  },
+  "accelerometer": {
+    "jar":["sensor.jar"]
+  },
+  "audio": {
+    "jar":["audio.jar"]
+  },
+  "cache": {
+    "jar":["nopermission.jar"]
+  },
+  "camera": {
+    "jar":["camera.jar"]
+  },
+  "contacts":{
+    "jar":["contacts.jar"]
+  },
+  "device": {
+    "jar":["device.jar"]
+  },
+  "downloader": {
+    "jar":["downloader.jar"]
+  },
+  "file": {
+    "jar":["file.jar"]
+  },
+  "gallery": {
+    "jar":["gallery.jar"],
+    "res":[
+      "drawable\\image_pick_mask.9.png",
+      "drawable\\image_pick_no_media.png",
+      "drawable\\image_pick_title_sel.xml",
+      "layout\\image_pick_gallery.xml",
+      "layout\\image_pick_gallery_item.xml"
+    ]
+  },
+  "geolocation": {
+    "jar":["geolocation.jar","geolocation-system.jar"], /*系统定位*/
+    "baidu": { /*百度定位：需打开百度地图*/
+      "jar":["geolocation.jar", "geolocation-baidu.jar"],
+      "assets": [
+          "res\\arrow.png",
+          "res\\bubble_background.png"
+      ]
+    },
+    "amap":{ /*高德定位：需打开高德地图*/
+      "jar":["geolocation.jar", "geolocation-amap.jar"]
+    }
+  },
+  "invocation":{
+    "jar":["invocation.jar"]
+  },
+  "messaging":{
+    "jar":["messaging.jar"]
+  },
+  "orientation":{
+    "jar":["sensor.jar"]
+  },
+  "proximity": {
+    "jar":["sensor.jar"]
+  },
+
+  "storage": {
+    "jar": ["nopermission.jar"]
+  },
+  "uploader": {
+    "jar": ["uploader.jar"]
+  },
+  "runtime": {
+    "jar": ["nopermission.jar"]
+  },
+  "xmlhttprequest": {
+    "jar": ["xhr.jar"]
+  },
+  "zip":{
+    "jar": ["nopermission.jar"]
+  },
+  "barcode": {
+    "jar": ["barcode.jar"],
+    "assets": ["res\\beep.ogg"]
+  },
+  "speech": {
+    "jar": [
+      "speech.jar",
+      "speech_ifly.jar",
+      "Msc.jar"
+    ],
+    "so": [
+      "armeabi\\libmsc.so",
+      "armeabi-v7a\\libmsc.so"
+    ]
+  },
+  "nativeui": {
+    "jar": [
+      "nativeui.jar"
+    ],
+    "res":[
+      "drawable\\longding_bg.xml",
+      "drawable\\slt_as_ios7_cancel_bt.xml",
+      "drawable\\slt_as_ios7_other_bt_bottom.xml",
+      "drawable\\slt_as_ios7_other_bt_middle.xml",
+      "drawable\\slt_as_ios7_other_bt_single.xml",
+      "drawable\\slt_as_ios7_other_bt_title.xml",
+      "drawable\\slt_as_ios7_other_bt_top.xml",
+      "drawable-xhdpi\\actionsheet_bottom_normal.9.png",
+      "drawable-xhdpi\\actionsheet_bottom_pressed.9.png",
+      "drawable-xhdpi\\actionsheet_middle_normal.9.png",
+      "drawable-xhdpi\\actionsheet_middle_pressed.9.png",
+      "drawable-xhdpi\\actionsheet_single_normal.9.png",
+      "drawable-xhdpi\\actionsheet_single_pressed.9.png",
+      "drawable-xhdpi\\actionsheet_top_normal.9.png",
+      "drawable-xhdpi\\actionsheet_top_pressed.9.png",
+      "drawable-xhdpi\\dcloud_streamapp_icon_appdefault.png",
+      "drawable-xhdpi\\dcloud_streamapp_qr.png",
+      "drawable-xhdpi\\dcloud_streamapp_scan_back.png",
+      "layout\\dcloud_loadingview.xml",
+      "layout\\dcloud_view_splash.xml",
+      "layout\\loadingview.xml",
+      "layout\\dcloud_dialog.xml"
+    ]
+  },
+  "nativeobj": {
+    "jar": ["nativeObj.jar"]
+  },
+  "navigator": {
+    "jar": ["navigatorui.jar"]
+  },
+
+  "maps":{
+    "plugin": true,
+    "name": "maps"
+  },
+  "payment":{
+    "plugin": true,
+    "name": "payment"
+  },
+  "push":{
+    "plugin": true,
+    "name": "push"
+  },
+  "share": {
+    "plugin": true,
+    "name": "share"
+  },
+  "statistic": {
+    "plugin": true,
+    "name": "statics"
+  },
+  "oauth":{
+    "plugin": true,
+    "name": "oauth"
+  },
+  /* 以下几个模块无需任何资源？*/
+  "events": {
+  },
+  "splashscreen": {
+  },
+  "console":{
+  },
+  "webview":{
+  },
+  /* 插件 */
+  "plugins": {
+    "maps": {
+      "baidu": {
+        "jar":[
+          "map-baidu.jar",
+          "BaiduLBS_Android.jar",
+          "android-support-v4.jar"
+        ],
+        "so":[
+          "armeabi\\liblocSDK6a.so",
+          "armeabi\\libBaiduMapSDK_v3_5_0_15.so",
+          "armeabi-v7a\\liblocSDK6a.so",
+          "armeabi-v7a\\libBaiduMapSDK_v3_5_0_15.so",
+          "x86\\liblocSDK6a.so",
+          "x86\\libBaiduMapSDK_v3_5_0_15.so"
+        ],
+        "assets": [
+          "res\\arrow.png",
+          "res\\bubble_background.png"
+        ]
+      },
+      "amap":{
+        "jar":[
+          "map-amap.jar",
+          "AMap_3DMap_V2.4.1.jar",
+          "AMap_Services_V2.4.0.jar",
+          "MapApiLocation_1.3.3.jar"
+        ],
+        "so":[
+          "armeabi\\libamapv304.so",
+          "armeabi\\libamapv304ex.so",
+          "armeabi-v7a\\libamapv304.so",
+          "armeabi-v7a\\libamapv304ex.so",
+          "x86\\libamapv304.so",
+          "x86\\libamapv304ex.so"
+        ]
+      }
+    },
+    "payment": {
+      "alipay":{
+        "jar":[
+          "payment.jar",
+          "payment-alipay.jar",
+          "alipaysdk.jar",
+          "alipaysecsdk.jar",
+          "alipayutdid.jar"
+        ]
+      },
+      "weixin":{
+        "jar":[
+          "payment.jar",
+          "payment-weixin.jar",
+          "tx_wx.jar"
+        ]
+      }
+    },
+    "push": {
+      "igexin":{
+        "jar":[
+          "aps.jar",
+          "aps-igexin.jar",
+          "GetuiExt-2.0.3.jar",
+          "GetuiSDK2.7.0.0.jar",
+          "json_simple-1.1.jar"
+        ],
+        "so":["armeabi\\libgetuiext.so"],
+        "res":[
+          "layout\\app_download_notification.xml",
+          "layout\\increment_popup_dialog.xml",
+          "layout\\notification.xml",
+          "layout\\notification_inc.xml"
+        ]
+      }
+    },
+    "share":{
+      "sina":{
+        "jar":[
+          "share.jar",
+          "share-sina.jar",
+          "weibosdk.jar",
+          "weibosdkcore_release.jar"
+        ],
+        "so":[
+          "armeabi\\libweibosdkcore.so",
+          "armeabi-v7a\\libweibosdkcore.so",
+          "x86\\libweibosdkcore.so"
+        ]
+      },
+      "tencent": {
+        "jar":[
+          "share.jar",
+          "share-tencent.jar",
+          "tx_weibo_sdk.jar",
+          "tx_weibo_sdk_component.jar",
+          "tx_weibo_sdk-httpclient-3.0.1.jar"
+        ],
+        "assets":[
+          "bg320x480.png",
+          "bg480x800.png",
+          "bg540x960.png",
+          "btn1_320x480.png",
+          "btn1_480x800.png",
+          "btn1_540x960.png",
+          "btn1_hover_320x480.png",
+          "btn1_hover_480x800.png",
+          "btn1_hover_540x960.png",
+          "btn2_320x480.png",
+          "btn2_480x800.png",
+          "btn2_540x960.png",
+          "childbg_320x480.png",
+          "childbg_480x800.png",
+          "childbg_540x960.png",
+          "close320x480.png",
+          "close480x800.png",
+          "close540x960.png",
+          "composeimageframe320x480.png",
+          "composeimageframe480x800.png",
+          "composeimageframe540x960.png",
+          "dingwei_icon2x320x480.png",
+          "dingwei_icon2x480x800.png",
+          "dingwei_icon2x540x960.png",
+          "dingwei_icon_hover2x320x480.png",
+          "dingwei_icon_hover2x480x800.png",
+          "dingwei_icon_hover2x540x960.png",
+          "groupbg_320x480.png",
+          "groupbg_480x800.png",
+          "groupbg_540x960.png",
+          "haoyou_icon2x320x480.png",
+          "haoyou_icon2x480x800.png",
+          "haoyou_icon2x540x960.png",
+          "haoyou_icon_hover2x320x480.png",
+          "haoyou_icon_hover2x480x800.png",
+          "haoyou_icon_hover2x540x960.png",
+          "huati_icon2x320x480.png",
+          "huati_icon2x480x800.png",
+          "huati_icon2x540x960.png",
+          "huati_icon_hover2x320x480.png",
+          "huati_icon_hover2x480x800.png",
+          "huati_icon_hover2x540x960.png",
+          "huati_input2x320x480.png",
+          "huati_input2x480x800.png",
+          "huati_input2x540x960.png",
+          "icon_bg2x320x480.png",
+          "icon_bg2x480x800.png",
+          "icon_bg2x540x960.png",
+          "input_bg320x480.png",
+          "input_bg480x800.png",
+          "input_bg540x960.png",
+          "loading_btn2x320x480.png",
+          "loading_btn2x480x800.png",
+          "loading_btn2x540x960.png",
+          "logo.png",
+          "logo480x800.png",
+          "neterror320x480.png",
+          "neterror480x800.png",
+          "neterror540x960.png",
+          "pic_biankuang2x320x480.png",
+          "pic_biankuang2x480x800.png",
+          "pic_biankuang2x540x960.png",
+          "pic_icon2x320x480.png",
+          "pic_icon2x480x800.png",
+          "pic_icon2x540x960.png",
+          "pic_icon_hover2x320x480.png",
+          "pic_icon_hover2x480x800.png",
+          "pic_icon_hover2x540x960.png",
+          "quxiao_btn2x320x480.png",
+          "quxiao_btn2x480x800.png",
+          "quxiao_btn2x540x960.png",
+          "quxiao_btn_hover320x480.png",
+          "quxiao_btn_hover480x800.png",
+          "quxiao_btn_hover540x960.png",
+          "readd_bg320x480.png",
+          "readd_bg480x800.png",
+          "readd_bg540x960.png",
+          "return_btn2x320x480.png",
+          "return_btn2x480x800.png",
+          "return_btn2x540x960.png",
+          "return_btn_hover320x480.png",
+          "return_btn_hover480x800.png",
+          "return_btn_hover540x960.png",
+          "searchbg_320x480.png",
+          "searchbg_480x800.png",
+          "searchbg_540x960.png",
+          "search_320x480.png",
+          "search_480x800.png",
+          "Search_540x960.png",
+          "sent_btn2x320x480.png",
+          "sent_btn2x480x800.png",
+          "sent_btn2x540x960.png",
+          "sent_btn_22x320x480.png",
+          "sent_btn_22x480x800.png",
+          "sent_btn_22x540x960.png",
+          "sent_btn_hover320x480.png",
+          "sent_btn_hover480x800.png",
+          "sent_btn_hover540x960.png",
+          "start_icon2x320x480.png",
+          "start_icon2x480x800.png",
+          "start_icon2x540x960.png",
+          "table_lie_320x480.png",
+          "table_lie_480x800.png",
+          "table_lie_540x960.png",
+          "test2x480x800.png",
+          "topic_320x480.png",
+          "topic_480x800.png",
+          "topic_540x960.png",
+          "up_bg2x320x480.png",
+          "up_bg2x480x800.png",
+          "up_bg2x540x960.png",
+          "video_pic2x320x480.png",
+          "video_pic2x480x800.png",
+          "video_pic2x540x960.png"
+        ]
+      },
+      "weixin": {
+        "jar":[
+          "share.jar",
+          "share-weixin.jar",
+          "tx_wx.jar",
+          "oauth-weixin.jar"
+        ]
+      },
+      "qq":{
+        "jar":[
+          "share.jar",
+          "share-qq.jar",
+          "open_sdk_r5043_lite.jar"
+        ]
+      }
+    },
+    "statics": {
+      "umeng": {
+        "jar": [
+          "statistics-umeng.jar",
+          "umeng-analytics-v6.0.1.jar"
+        ]
+      }
+    },
+    "oauth": {
+      "qq": {
+        "jar":[
+          "oauth.jar",
+          "oauth-qq.jar",
+          "open_sdk_r5043_lite.jar"
+        ]
+      },
+      "sina": {
+        "jar":[
+          "oauth.jar",
+          "oauth-sina.jar",
+          "weibosdk.jar",
+          "weibosdkcore_release.jar"
+        ]
+      },
+      "weixin": {
+        "jar":[
+          "oauth.jar",
+          "oauth-weixin.jar",
+          "tx_wx.jar"
+        ]
+      }
+    }
+  }
+}

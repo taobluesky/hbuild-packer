@@ -1,0 +1,260 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="{{pkg_name}}">
+    <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    {% for p in permissions %}
+        {{p}}
+    {% endfor %}
+
+    <application android:allowBackup="false"
+                 android:allowClearUserData="true"
+                 android:hardwareAccelerated="true"
+                 android:icon="@drawable/icon"
+                 android:label="@string/app_name"
+                 android:largeHeap="true"
+                 android:name="io.dcloud.application.DCloudApplication"
+                 android:theme="@style/DCloudTheme">
+        <activity android:configChanges="fontScale|keyboard|keyboardHidden|mcc|mnc|navigation|orientation|screenSize"
+                  android:hardwareAccelerated="true"
+                  android:label="@string/app_name"
+                  android:name="io.dcloud.PandoraEntry"
+                  android:screenOrientation="{{orientation}}"
+                  android:theme="@style/TranslucentTheme"
+                  android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation"
+                  android:hardwareAccelerated="true"
+                  android:label="@string/app_name"
+                  android:name="io.dcloud.PandoraEntryActivity"
+                  android:screenOrientation="{{orientation}}"
+                  android:theme="@style/DCloudTheme"
+                  android:windowSoftInputMode="adjustResize"
+                  android:launchMode="singleTask">
+            {# 云端打包具有下面内容
+            <!--intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="h5cc7c6fc" />
+            </intent-filter-->
+            #}
+        </activity>
+        <service android:exported="true" android:name="io.dcloud.common.adapter.io.MiniServerService" />
+
+        {% if is_immersed %}
+        <meta-data android:name="immersed.status.bar" android:value="true"/>
+        {% endif %}
+
+        {% if gallery %}
+        <activity android:name="io.dcloud.imagepick.CustomGalleryActivity" >
+            <intent-filter>
+                <action android:name="io.dcloud.ACTION_PICK" />
+                <action android:name="io.dcloud.ACTION_MULTIPLE_PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        {% endif %}
+
+        {# 讯飞语音 http://ask.dcloud.net.cn/article/94 #}
+        {% if speech.open %}
+        <meta-data android:value="{{speech.appid}}" android:name="IFLY_APPKEY"/>
+        {% endif %}
+
+        {% if maps.baidu.open %}
+        <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="{{maps.baidu.appkey}}"/>
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
+        {% endif %}
+
+        {% if maps.amap.open %}
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="{{maps.amap.appkey}}"/>
+        {% endif %}
+
+        {% if payment.alipay.open %}
+        <activity android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        {% endif %}
+
+        {% if payment.weixin.open or share.weixin.open or oauth.weixin.open %}
+        {% set wx_appid = payment.weixin.appid or share.weixin.appid or oauth.weixin.appid %}
+        <meta-data android:value="{{wx_appid}}" android:name="WX_APPID"/>
+        {% endif %}
+
+        {% if payment.weixin.open %}
+        <activity android:name="{{pkg_name}}.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        {% endif %}
+
+        {% if push.igexin.open %}
+        <receiver android:name="io.dcloud.feature.apsGt.PushMessageReceiver">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.{{push.igexin.appid}}"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="io.dcloud.feature.apsGt.GTNotificationReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="{{pkg_name}}.__CREATE_NOTIFICATION"/>
+                <action android:name="{{pkg_name}}.__REMOVE_NOTIFICATION"/>
+                <action android:name="{{pkg_name}}.__CLEAR_NOTIFICATION"/>
+                <action android:name="{{pkg_name}}.__CLILK_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
+        <meta-data android:name="PUSH_APPID" android:value="{{push.igexin.appid}}"/>
+        <meta-data android:name="PUSH_APPKEY" android:value="{{push.igexin.appkey}}"/>
+        <meta-data android:name="PUSH_APPSECRET" android:value="{{push.igexin.appsecret}}"/>
+        <service android:name="com.igexin.sdk.PushService" android:exported="true" android:label="NotificationCenter" android:process=":pushservice" >
+        </service>
+        <service android:name="com.igexin.sdk.PushServiceUser" android:exported="true" android:label="NotificationCenterUser" >
+        </service>
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="com.igexin.sdk.action.refreshls"/>
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.igexin.sdk.PushManagerReceiver" android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.pushmanager"/>
+            </intent-filter>
+        </receiver>
+        <activity android:name="com.igexin.sdk.PushActivity" android:excludeFromRecents="true" android:exported="false" android:process=":pushservice" android:taskAffinity="com.igexin.sdk.PushActivityTask" android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <service android:name="com.igexin.download.DownloadService" android:process=":pushservice"/>
+        <receiver android:name="com.igexin.download.DownloadReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <provider android:name="com.igexin.download.DownloadProvider" android:exported="true" android:authorities="downloads.{{pkg_name}}" android:process=":pushservice"/>
+        <activity android:name="com.igexin.getuiext.activity.GetuiExtActivity" android:configChanges="orientation|keyboard|keyboardHidden" android:excludeFromRecents="true" android:exported="false" android:process=":pushservice" android:taskAffinity="android.task.myServicetask" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:name="com.igexin.sdk.GActivity" android:excludeFromRecents="true" android:exported="true" android:process=":pushservice" android:taskAffinity="com.igexin.sdk.PushActivityTask" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <receiver android:name="com.igexin.getuiext.service.PayloadReceiver" android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4"/>
+                <action android:name="com.igexin.sdk.action.{{push.igexin.appid}}"/>
+            </intent-filter>
+        </receiver>
+        <service android:name="com.igexin.getuiext.service.GetuiExtService" android:process=":pushservice"/>
+        {% endif %}
+
+        {% if share.sina.open or oauth.sina.open %}
+        {% set sina_redirect_uri = oauth.sina.redirect_uri or share.sina.redirect_uri %}
+        {% set sina_appkey = oauth.sina.appkey or share.sina.appkey %}
+        <meta-data android:value="{{sina_redirect_uri}}" android:name="SINA_REDIRECT_URI"/>
+        <meta-data android:value="_{{sina_appkey}}" android:name="SINA_APPKEY"/>
+        {% endif %}
+
+        {% if share.sina.open %}
+        <meta-data android:value="{{share.sina.appsecret}}" android:name="SINA_SECRET"/>
+        {% endif %}
+
+        {% if share.tencent.open %}
+        <activity android:name="io.dcloud.share.tencent.WebAuthorize" android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <meta-data android:value="{{share.tencent.redirect_uri}}" android:name="TENCENT_REDIRECT_URI"/>
+        <meta-data android:value="{{share.tencent.appsecret}}" android:name="TENCENT_SECRET"/>
+        <meta-data android:value="_{{share.tencent.appkey}}" android:name="TENCENT_APPKEY"/>
+        {% endif %}
+
+        {% if share.weixin.open or oauth.weixin.open %}
+        {% set wx_secret = share.weixin.appsecret or oauth.weixin.appsecret%}
+        <meta-data android:value="{{wx_secret}}" android:name="WX_SECRET"/>
+        <!--meta-data android:value="{{share.weixin.appid}}" android:name="WX_APPID"/-->
+        {% endif %}
+
+        {% if share.weixin.open or oauth.weixin.open %}
+        {% set wx_appid = share.weixin.appid or oauth.weixin.appid %}
+        <activity android:name="{{pkg_name}}.wxapi.WXEntryActivity" android:label="@string/app_name"  android:exported="true" android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="{{wx_appid}}"/>
+            </intent-filter>
+        </activity>
+        {% endif %}
+
+        {% if share.qq.open or oauth.qq.open %}
+        {%set qq_appid = share.qq.appid or oauth.qq.appid %}
+        <meta-data android:value="{{qq_appid}}" android:name="QQ_APPID"/>
+        <activity android:name="com.tencent.tauth.AuthActivity" android:launchMode="singleTask" android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="tencent{{qq_appid}}"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:screenOrientation="portrait"/>
+        {% endif %}
+
+
+        {% if statics.umeng.open %}
+        <meta-data android:value="{{statics.umeng.appkey}}" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="{{statics.umeng.channelid}}" android:name="UMENG_CHANNEL"/>
+        {% endif %}
+
+        {% if oauth.weixin.open %}
+        <!--meta-data android:value="{{oauth.weixin.appsecret}}" android:name="WX_SECRET"/-->
+        <!--meta-data android:value="{{oauth.weixin.appid}}" android:name="WX_APPID"/-->
+        <!--activity android:name="{{pkg_name}}.wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="{{oauth.weixin.appid}}"/>
+            </intent-filter>
+        </activity-->
+        {% endif %}
+
+        {% if oauth.qq.open %}
+        <!--meta-data android:value="{{oauth.qq.appid}}" android:name="QQ_APPID"/>
+        <activity android:name="com.tencent.tauth.AuthActivity" android:launchMode="singleTask" android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="{{oauth.qq.appid}}"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:screenOrientation="portrait"/-->
+        {% endif %}
+
+        {% if oauth.sina.open %}
+        <!--meta-data android:value="{{oauth.sina.redirect_uri}}" android:name="SINA_REDIRECT_URI"/>
+        <meta-data android:value="_{{oauth.sina.appkey}}" android:name="SINA_APPKEY"/-->
+        <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        {% endif %}
+
+    </application>
+
+
+</manifest>
