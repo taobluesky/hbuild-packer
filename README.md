@@ -28,11 +28,12 @@ $ pip install jinja2
 打包之前，先对config.json进行正确的配置
 
 # Android打包
-## 打包准备环境
+## 准备环境
 - JDK 1.8
 - Android Studio v2.2.2
 - Android SDK API v23(Android 6.0)
-- 5+SDK for Android (http://ask.dcloud.net.cn/article/103)
+- 5+SDK for Android [参考](http://ask.dcloud.net.cn/article/103)
+
 ## 创建AndroidStudio模板工程
 启动Android Studio，选择`New Project`，按如下配置
 ```
@@ -48,8 +49,10 @@ Company Domain:yourdomain.com
 菜单`Build->Build Apk`，如未提示`generated successfully`，请自行检查android studio的配置。
 
 菜单`Build->Clean Project`，清理模板工程
+
 ## 执行打包命令
-`$ python packer.py -p android`
+```$ python packer.py -p android```
+
 如提示`BUILD SUCCESSFUL`，则打包成功。可打开`config.json`配置的`app_project_path`目录下`app\build\outputs\apk`查看打包后的apk。
 
 # 命令行(CLI)
