@@ -1,40 +1,190 @@
 <properties>
-	<features>
-		<feature name="Camera" value="io.dcloud.js.camera.CameraFeatureImpl"/>
-		<feature name="Device" value="io.dcloud.feature.device.DeviceFeatureImpl"/>
-		<feature name="File" value="io.dcloud.js.file.FileFeatureImpl"/>
-		<feature name="Gallery" value="io.dcloud.js.gallery.GalleryFeatureImpl"/>
-		<feature name="Storage" value="io.dcloud.feature.pdr.NStorageFeatureImpl"/>
-		<feature name="Runtime" value="io.dcloud.feature.pdr.RuntimeFeatureImpl"/>
-		<feature name="XMLHttpRequest" value="io.dcloud.net.XMLHttpRequestFeature"/>
-		<feature name="Zip" value="io.dcloud.feature.pdr.ZipFeature"/>
-		<feature name="UI" value="io.dcloud.feature.ui.UIFeatureImpl">
-			<module name="Navigator" value="io.dcloud.feature.ui.NavView"/>
-		</feature>
-		<feature name="NativeUI" value="io.dcloud.feature.ui.nativeui.NativeUIFeatureImpl"/>
-		<feature name="Navigator" value="io.dcloud.feature.ui.navigator.NavigatorUIFeatureImpl"/>
-		<feature name="Uploader" value="io.dcloud.net.UploadFeature"/>
-		<feature name="Barcode" value="io.dcloud.feature.barcode.BarcodeFeatureImpl"/>
-		<feature name="Downloader" value="io.dcloud.net.DownloaderFeatureImpl"/>
-		<feature name="Geolocation" value="io.dcloud.js.geolocation.GeolocationFeatureImpl"/>
-		<feature name="OAuth" value="io.dcloud.feature.oauth.OAuthFeatureImpl"/>
-		<feature name="Invocation" value="io.dcloud.invocation.Invocation"/>
-		<feature name="Push" value="io.dcloud.feature.aps.APSFeatureImpl">
-			<module name="igexin" value="io.dcloud.feature.apsGt.GTPushService"/>
-		</feature>
-		<feature name="Share" value="io.dcloud.share.ShareFeatureImpl">
-			<module name="Weixin" value="io.dcloud.share.mm.WeiXinApiManager"/>
-		</feature>
-		<feature name="OAuth" value="io.dcloud.feature.oauth.OAuthFeatureImpl">
-			<module name="OAuth-Weixin" value="io.dcloud.feature.oauth.weixin.WeiXinOAuthService"/>
-		</feature>
-		<feature name="Payment" value="io.dcloud.feature.payment.PaymentFeatureImpl">
-			<module name="Payment-Weixin" value="io.dcloud.feature.payment.weixin.WeiXinPay"/>
-		</feature>
-	</features>	
+    <features>
+        {%- if 'accelerometer' in installed_module -%}
+        <feature name="Accelerometer" value="io.dcloud.feature.sensor.AccelerometerFeatureImpl"/>
+        {%- endif -%}
 
-	<services>
-		<service name="Downloader" value="io.dcloud.net.DownloaderBootImpl"/>
-		<service name="push" value="io.dcloud.feature.aps.APSFeatureImpl"/>
-	</services>
+        {%- if 'audio' in installed_module -%}
+        <feature name="Audio" value="io.dcloud.feature.audio.AudioFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'cache' in installed_module -%}
+        <feature name="Cache" value="io.dcloud.feature.pdr.CoreCacheFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'camera' in installed_module -%}
+        <feature name="Camera" value="io.dcloud.js.camera.CameraFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'console' in installed_module -%}
+        <feature name="Console" value="io.dcloud.feature.pdr.LoggerFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'contacts' in installed_module -%}
+        <feature name="Contacts" value="io.dcloud.feature.contacts.ContactsFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'device' in installed_module -%}
+        <feature name="Device" value="io.dcloud.feature.device.DeviceFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'downloader' in installed_module -%}
+        <feature name="Downloader" value="io.dcloud.net.DownloaderFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'file' in installed_module -%}
+        <feature name="File" value="io.dcloud.js.file.FileFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'gallery' in installed_module -%}
+        <feature name="Gallery" value="io.dcloud.js.gallery.GalleryFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'geolocation' in installed_module -%}
+        <feature name="Geolocation" value="io.dcloud.js.geolocation.GeolocationFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'invocation' in installed_module -%}
+        <feature name="Invocation" value="io.dcloud.invocation.Invocation"/>
+        {%- endif -%}
+
+        {%- if 'messaging' in installed_module -%}
+        <feature name="Messaging" value="io.dcloud.adapter.messaging.MessagingPluginImpl"/>
+        {%- endif -%}
+
+        {%- if 'orientation' in installed_module -%}
+        <feature name="Orientation" value="io.dcloud.feature.sensor.OrientationFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'proximity' in installed_module -%}
+        <feature name="Proximity" value="io.dcloud.feature.sensor.ProximityFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'storage' in installed_module -%}
+        <feature name="Storage" value="io.dcloud.feature.pdr.NStorageFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'navigator' in installed_module -%}
+        <feature name="Navigator" value="io.dcloud.feature.ui.navigator.NavigatorUIFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'nativeobj' in installed_module -%}
+        <feature name="NativeObj" value="io.dcloud.feature.nativeObj.FeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'nativeui' in installed_module -%}
+        <feature name="NativeUI" value="io.dcloud.feature.ui.nativeui.NativeUIFeatureImpl"/>
+        {%- endif -%}
+
+        <feature name="UI" value="io.dcloud.feature.ui.UIFeatureImpl">
+            <module name="Navigator" value="io.dcloud.feature.ui.NavView"/>
+        </feature>
+
+        {%- if 'uploader' in installed_module -%}
+        <feature name="Uploader" value="io.dcloud.net.UploadFeature"/>
+        {%- endif -%}
+
+        {%- if 'runtime' in installed_module -%}
+        <feature name="Runtime" value="io.dcloud.feature.pdr.RuntimeFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'xmlhttprequest' in installed_module -%}
+        <feature name="XMLHttpRequest" value="io.dcloud.net.XMLHttpRequestFeature"/>
+        {%- endif -%}
+
+        {%- if 'zip' in installed_module -%}
+        <feature name="Zip" value="io.dcloud.feature.pdr.ZipFeature"/>
+        {%- endif -%}
+
+        {%- if 'barcode' in installed_module -%}
+        <feature name="Barcode" value="io.dcloud.feature.barcode.BarcodeFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'plugins.maps.baidu' in installed_module -%}
+        <feature name="Maps" value="io.dcloud.js.map.JsMapPluginImpl"/>
+        {%- endif -%}
+
+        {%- if 'plugins.maps.amap' in installed_module -%}
+        <feature name="Maps" value="io.dcloud.js.map.amap.JsMapPluginImpl"/>
+        {%- endif -%}
+
+        {%- if 'speech' in installed_module -%}
+        <feature name="Speech" value="io.dcloud.feature.speech.SpeechFeatureImpl">
+            <module name="iFly" value="io.dcloud.feature.speech.IflySpeechEngine"/>
+        </feature>
+        {%- endif -%}
+
+        {%- if 'push' in installed_module -%}
+        <feature name="Push" value="io.dcloud.feature.aps.APSFeatureImpl">
+            {%- if 'plugins.push.igexin' in installed_module -%}
+            <module name="igexin" value="io.dcloud.feature.apsGt.GTPushService"/>
+            {%- endif -%}
+        </feature>
+        {%- endif -%}
+
+        {%- if 'share' in installed_module -%}
+        <feature name="Share" value="io.dcloud.share.ShareFeatureImpl">
+            {%- if 'plugins.share.weixin' in installed_module -%}
+            <module name="Weixin" value="io.dcloud.share.mm.WeiXinApiManager"/>
+            {%- endif -%}
+            {%- if 'plugins.share.qq' in installed_module -%}
+            <module name="QQ" value="io.dcloud.share.qq.QQApiManager"/>
+            {%- endif -%}
+            {%- if 'plugins.share.tencent' in installed_module -%}
+            <module name="Tencent" value="io.dcloud.share.tencent.TencentWeiboApiManager"/>
+            {%- endif -%}
+            {%- if 'plugins.share.sina' in installed_module -%}
+            <module name="Sina" value="io.dcloud.share.sina.SinaWeiboApiManager"/>
+            {%- endif -%}
+        </feature>
+        {%- endif -%}
+
+        {%- if 'plugins.statics.umeng' in installed_module -%}
+        <feature name="Statistic" value="io.dcloud.feature.statistics.StatisticsFeatureImpl"/>
+        {%- endif -%}
+
+        {%- if 'payment' in installed_module -%}
+        <feature name="Payment" value="io.dcloud.feature.payment.PaymentFeatureImpl">
+            {%- if 'plugins.payment.alipay' in installed_module -%}
+            <module name="AliPay" value="io.dcloud.feature.payment.alipay.AliPay"/>
+            {%- endif -%}
+            {%- if 'plugins.payment.weixin' in installed_module -%}
+            <module name="Payment-Weixin" value="io.dcloud.feature.payment.weixin.WeiXinPay"/>
+            {%- endif -%}
+        </feature>
+        {%- endif -%}
+
+        {%- if 'oauth' in installed_module -%}
+        <feature name="OAuth" value="io.dcloud.feature.oauth.OAuthFeatureImpl">
+            {%- if 'plugins.oauth.weixin' in installed_module -%}
+            <module name="OAuth-Weixin" value="io.dcloud.feature.oauth.weixin.WeiXinOAuthService"/>
+            {%- endif -%}
+            {%- if 'plugins.oauth.qq' in installed_module -%}
+            <module name="OAuth-QQ" value="io.dcloud.feature.oauth.qq.QQOAuthService"/>
+            {%- endif -%}
+            {%- if 'plugins.oauth.sina' in installed_module -%}
+            <module name="OAuth-Sina" value="io.dcloud.feature.oauth.sina.SinaOAuthService"/>
+            {%- endif -%}
+        </feature>
+        {%- endif -%}
+    </features>
+
+    <services>
+        {%- if 'downloader' in installed_module -%}
+        <service name="Downloader" value="io.dcloud.net.DownloaderBootImpl"/>
+        {%- endif -%}
+
+        {%- if 'plugins.statics.umeng' in installed_module -%}
+        <service name="Statistic" value="io.dcloud.feature.statistics.StatisticsBootImpl"/>
+        {%- endif -%}
+
+        {%- if 'maps' in installed_module -%}
+        <service name="Maps" value="io.dcloud.js.map.MapInitImpl"/>
+        {%- endif -%}
+
+        {%- if 'plugins.push.igexin' in installed_module -%}
+        <service name="push" value="io.dcloud.feature.aps.APSFeatureImpl"/>
+        {%- endif -%}
+    </services>
+
 </properties>

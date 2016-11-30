@@ -2,10 +2,8 @@
     package="{{pkg_name}}">
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    {% for p in permissions %}
-        {{p}}
+    {% for perm in permissions %}
+        {{ perm }}
     {% endfor %}
 
     <application android:allowBackup="false"
@@ -196,7 +194,7 @@
         {% endif %}
 
         {% if share.qq.open or oauth.qq.open %}
-        {%set qq_appid = share.qq.appid or oauth.qq.appid %}
+        {% set qq_appid = share.qq.appid or oauth.qq.appid %}
         <meta-data android:value="{{qq_appid}}" android:name="QQ_APPID"/>
         <activity android:name="com.tencent.tauth.AuthActivity" android:launchMode="singleTask" android:noHistory="true">
             <intent-filter>

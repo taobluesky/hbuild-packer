@@ -173,8 +173,8 @@
       "baidu": {
         "jar":[
           "map-baidu.jar",
-          "BaiduLBS_Android.jar",
-          "android-support-v4.jar"
+          "BaiduLBS_Android.jar"
+          /*"android-support-v4.jar"*/
         ],
         "so":[
           "armeabi\\liblocSDK6a.so",

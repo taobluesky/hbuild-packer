@@ -1,0 +1,26 @@
+{
+  // 待打包的Hbuild项目根目录路径
+  "hbuild_project_path": "C:\\Users\\timo\\Documents\\HBuilderProject\\HelloH5",
+
+  "android":{
+    // Andriod平台5+SDK的路径，必须是sdk的根目录下(有assets,libs,res,src目录)
+    // 参考 http://ask.dcloud.net.cn/article/103
+    "h5plus_sdk_path": "F:\\Android-SDK\\SDK",
+    /* dcloud android模板工程路径 */
+    "dcloud_project_path": "C:\\Users\\timo\\StudioProjects\\DCloudTemplate",
+    /* android工程路径，生成后的目标工程 */
+    "app_project_path": "C:\\Users\\timo\\Desktop\\DCloudTemplate",
+    /* Android应用包名，如io.dcloud.HelloH5 */
+    "packagename": "com.cn_etc.cph",
+    /* Android应用打包使用的密钥库文件 */
+    "keystore": "C:/Users/timo/Desktop/car+home/app/cph.keystore",
+    /* Android应用打包使用密钥库中证书的密码 */
+    "password": "123456",
+    /* Android应用打包使用密钥库中证书的别名 */
+    "aliasname": "cphkey"
+  },
+
+  "ios":{
+
+  }
+}
