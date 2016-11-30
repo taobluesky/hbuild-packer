@@ -1,6 +1,9 @@
 # -*- coding:utf-8 -*-
 
+import sys
+import argparse
 import os
+import subprocess
 import shutil
 import json
 import codecs
@@ -118,8 +121,8 @@ class BasePacker(object):
                     ignore.append(name)
                 if src == self.hbuild_project_path and name == 'unpackage':  # 忽略unpackage目录
                     ignore.append('unpackage')
-                path = os.path.join(src, name)
-                _path = path.replace(self.hbuild_project_path + '\\', '').replace('\\','/')
+                path = os.path.join(src, name).replace('\\', '/')
+                _path = path.replace(self.hbuild_project_path.replace('\\', '/') + '/', '')
                 if _path in self._hbuild_manifest_json['unpackage']:
                     ignore.append(name)
             return ignore
@@ -453,16 +456,22 @@ class AndroidPacker(BasePacker):
         logging.info(u'APP工程建立完成:%s' % (self.app_project_path,))
 
     def build(self, only_create=False):
+        """
+        构建项目
+        :param only_create 是否仅创建工程项目，不进行编译
+        :return 成功返回0，失败返回非0
+        """
         self.create_project()
         if only_create:
-            return
+            return 0
+
         if self.get_distribute_value('debug'):
-            # cmd = os.path.join(self.app_project_path, 'gradlew.bat')
-            os.chdir(self.app_project_path)
-            os.system('gradlew assembleDebug')
+            status = subprocess.call('gradlew assembleDebug', shell=True, cwd=self.app_project_path,
+                                  stderr=sys.stderr, stdin=sys.stdin, stdout=sys.stdout)
         else:
-            os.chdir(self.app_project_path)
-            os.system('gradlew assembleRelease')
+            status = subprocess.call('gradlew assembleRelease', shell=True, cwd=self.app_project_path,
+                                  stderr=sys.stderr, stdin=sys.stdin, stdout=sys.stdout)
+        return status
 
 
 def load_build_config():
@@ -470,17 +479,34 @@ def load_build_config():
     return config
 
 
-def build_android():
+def build(platform, only_create):
     config = load_build_config()
-    p = AndroidPacker(packagename=config['android']['packagename'],
-                      keystore=config['android']['keystore'],
-                      password=config['android']['password'],
-                      aliasname=config['android']['aliasname'],
-                      h5plus_sdk_path=config['android']['h5plus_sdk_path'],
-                      hbuild_project_path=config['hbuild_project_path'],
-                      dcloud_project_path=config['android']['dcloud_project_path'],
-                      app_project_path=config['android']['app_project_path'])
-    p.build()
+    if platform == 'android':
+        p = AndroidPacker(packagename=config['android']['packagename'],
+                          keystore=config['android']['keystore'],
+                          password=config['android']['password'],
+                          aliasname=config['android']['aliasname'],
+                          h5plus_sdk_path=config['android']['h5plus_sdk_path'],
+                          hbuild_project_path=config['hbuild_project_path'],
+                          dcloud_project_path=config['android']['dcloud_project_path'],
+                          app_project_path=config['android']['app_project_path'])
+        return p.build(only_create)
+    elif platform == 'ios':
+        pass
+
+
+def main():
+    parser = argparse.ArgumentParser(description=u'HBuilder离线打包器')
+    parser.add_argument('-p', '--platform', required=True, choices=['ios', 'android'],
+                        help=u'选择平台，ios或者android，当前仅支持android')
+    parser.add_argument('-c', '--only-create', action="store_true", help=u'仅创建工程，不进行编译', default=False)
+    args = parser.parse_args()
+    if args.platform == 'ios':
+        print u'暂不支持iOS平台'
+        sys.exit(1)
+
+    status = build(args.platform, args.only_create)
+    sys.exit(status)
 
 if __name__ == '__main__':
-    build_android()
+    main()
